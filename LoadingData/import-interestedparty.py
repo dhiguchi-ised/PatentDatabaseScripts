@@ -29,19 +29,28 @@ try:
                     cur.copy_expert("COPY %s (patentnumber_id, agenttypecode, appltypecode, interestedpartytypecode, interestedpartytype, ownerenabledate, ownerenddate, partyname, partyaddressline1, partyaddressline2, partyaddressline3, partyaddressline4, partyaddressline5, partycity, partyprovincecode, partyprovince, partypostalcode, partycountrycode, partycountry, id) FROM STDIN WITH QUOTE E'\b' DELIMITER E'|' CSV HEADER NULL AS 'NULL' encoding 'UTF8'" % table_name, csv_file)
                 except Error as e:
                     print(f"Error copying data from {filename}: {e}")
-            
-    cur.execute("UPDATE patents_pt_interested_party SET agenttypecode = NULL WHERE agenttypecode = '-2'")
-    cur.execute("UPDATE patents_pt_interested_party SET appltypecode = NULL WHERE appltypecode = '-2'")
-    cur.execute("UPDATE patents_pt_interested_party SET partyaddressline5 = NULL WHERE partyaddressline5 = 'NA'")
-    cur.execute("UPDATE patents_pt_interested_party SET partyprovincecode = NULL WHERE partyprovincecode = '-1'")
-    cur.execute("UPDATE patents_pt_interested_party SET partyprovincecode = NULL WHERE partyprovincecode = 'XX'")
-    cur.execute("UPDATE patents_pt_interested_party SET partyprovince = NULL WHERE partyprovince = 'Unknown'")
-    cur.execute("UPDATE patents_pt_interested_party SET partypostalcode = NULL WHERE partypostalcode = '-1'")
-    cur.execute("UPDATE patents_pt_interested_party SET partycountrycode = NULL WHERE partycountrycode = '-1'")
-    cur.execute("UPDATE patents_pt_interested_party SET partycountrycode = NULL WHERE partycountrycode = 'XX'")
-    cur.execute("UPDATE patents_pt_interested_party SET partycountry = NULL WHERE partycountry = 'Country Unknown'")
-    cur.execute("UPDATE patents_pt_interested_party SET partycountry = NULL WHERE partycountry = 'Unknown'")
                 
+    # Additional data cleaning and updates
+    update_queries = [
+        "UPDATE patents_pt_interested_party SET agenttypecode = NULL WHERE agenttypecode = '-2'",
+        "UPDATE patents_pt_interested_party SET appltypecode = NULL WHERE appltypecode = '-2'",
+        "UPDATE patents_pt_interested_party SET partyaddressline5 = NULL WHERE partyaddressline5 = 'NA'",
+        "UPDATE patents_pt_interested_party SET partyprovincecode = NULL WHERE partyprovincecode = '-1'",
+        "UPDATE patents_pt_interested_party SET partyprovincecode = NULL WHERE partyprovincecode = 'XX'",
+        "UPDATE patents_pt_interested_party SET partyprovince = NULL WHERE partyprovince = 'Unknown'",
+        "UPDATE patents_pt_interested_party SET partypostalcode = NULL WHERE partypostalcode = '-1'",
+        "UPDATE patents_pt_interested_party SET partycountrycode = NULL WHERE partycountrycode = '-1'",
+        "UPDATE patents_pt_interested_party SET partycountrycode = NULL WHERE partycountrycode = 'XX'",
+        "UPDATE patents_pt_interested_party SET partycountry = NULL WHERE partycountry = 'Country Unknown'",
+        "UPDATE patents_pt_interested_party SET partycountry = NULL WHERE partycountry = 'Unknown'"
+        # Add more update queries as needed
+    ]
+
+    for update_query in update_queries:
+        try:
+            cur.execute(update_query)
+        except Error as e:
+            print(f"Error executing update query: {e}")
 
     # Commit the changes and close the connection
     conn.commit()
