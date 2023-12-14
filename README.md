@@ -13,7 +13,7 @@ updaterecords.py is a script that is designed to allow users to modify specific 
 # Loading Data
 This folder has 10 scripts and an archive for out-of-date scripts used for loading data.
 
-There is a python script for individually loading data for each table, and one main script that will load data into all the tables in one execution. The main table must have its data loaded into first before any of the other tables.
+There is a python script for individually loading data for each table, and one main script that will load data into all the tables in one execution. The main table must have its data loaded into first before any of the other tables. The script importdata-master.bat will run all of the python scripts designed for each table in an appropriate order.
 
 The script importdata.py is the template that all the other scripts were adjusted from, the only changes being to target the different tables in the database and where to load the data from.
 
