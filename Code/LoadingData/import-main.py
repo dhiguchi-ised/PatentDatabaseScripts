@@ -26,7 +26,7 @@ try:
             filepath = os.path.join(directory, filename)
             with open(filepath, 'r', encoding="utf-8") as csv_file:
                 try:
-                    cur.copy_expert("COPY %s (patentnumber, filingdate, grantdate, appstatuscode, apptypecode, patenttitleenglish, patenttitlefrench, bibliograhicfileextractdate, countryofpublicationcode, documentkindtype, examinationrequestdate, filingcountrycode, langfilingcode, licenseforsaleindicator, pctappnumber, pctpubnumber, pctpubdate, parentappnumber, pctarticle2239fulfilleddate, pctsect371date, pctpubcountrycode, pubkindtype, printedasamendedcountrycode) FROM STDIN WITH QUOTE E'\b' DELIMITER E'|' CSV HEADER NULL AS 'NULL' encoding 'UTF8'" % table_name, csv_file)
+                    cur.copy_expert("COPY %s (patentnumber, filingdate, grantdate, appstatuscode, apptypecode, patenttitleenglish, patenttitlefrench, bibliographicfileextractdate, countryofpublicationcode, documentkindtype, examinationrequestdate, filingcountrycode, langfilingcode, licenseforsaleindicator, pctappnumber, pctpubnumber, pctpubdate, parentappnumber, pctarticle2239fulfilleddate, pctsect371date, pctpubcountrycode, pubkindtype, printedasamendedcountrycode) FROM STDIN WITH QUOTE E'\b' DELIMITER E'|' CSV HEADER NULL AS 'NULL' encoding 'UTF8'" % table_name, csv_file)
                 except Error as e:
                     print(f"Error copying data from {filename}: {e}")
                 

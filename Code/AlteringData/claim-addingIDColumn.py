@@ -8,11 +8,11 @@ PATH = 'C:/Users/HiguchiD/Documents/virtualenv/Data/Claim'
 
 # Connect to your PostgreSQL database
 conn = psycopg2.connect(
-    database="your_database_name",
-    user="your_user",
-    password="your_password",
-    host="your_host",
-    port="your_port"
+    database="postgres",
+    user="postgres",
+    password="ised",
+    host="localhost",
+    port="5440"
 )
 
 # Create a cursor

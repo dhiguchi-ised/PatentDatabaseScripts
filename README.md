@@ -1,5 +1,5 @@
 # Purpose of Scripts
-These scripts were used in the process of creating a database for the patent data from the Patents Researcher Dataset.
+These scripts were used in the process of creating a database for the patent data from the Patents Researcher Dataset used by the Django API project.
 
 # Altering Data
 This folder has 10 scripts, 8 relating to adding the unique id columns to the tables and 1 for removing any unenclosed quotations in the data.
@@ -21,6 +21,8 @@ XMLdataloader.py is a work-in-progress script to load the XML weekly patent rese
 
 # Table Scripts
 In this folder there are currently two scripts.
+
+NOTE: creatingpatenttables.sql is an out of date script that is advised against using for creating the tables in the database. The models defined for the Django API will create the tables in the database when making your first migration. This is done by performing 'python manage.py makemigrations' followed by 'python manage.py migrate' in the API project folder. If a table happens to be deleted and needs to be recreated, you must delete the migrations folder for the Django API, and then running "DELETE FROM django_migrations WHERE app = 'app_name'" before performing the migrations again to create the tables.
 
 creatingpatenttables.sql is a script to create tables for all the different types of data including, disclosure, claim, priority claim, interested party, ipc classification, abstract, and main data. The tables are related such that each table has a many-to-one relationship with the main table based on the patent number field. Since main is the only table that has its patentnumber field as unique, each table also has its own id field generated through the addingIDColumn.py script.
 
